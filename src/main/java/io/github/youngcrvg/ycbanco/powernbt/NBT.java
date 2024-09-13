@@ -20,4 +20,17 @@ public class NBT {
         Forgadata.put("PlayerPersisted", (Object)PlayerPersisted);
         NBTManager.getInstance().writeForgeData((Entity)p, Forgadata);
     }
+<<<<<<< HEAD
+=======
+
+    public static int getLevelV(final Player p) {
+        final int str = GetInt(p, "jrmcStrI");
+        final int dex = GetInt(p, "jrmcDexI");
+        final int con = GetInt(p, "jrmcCnsI");
+        final int wil = GetInt(p, "jrmcWilI");
+        final int spi = GetInt(p, "jrmcCncI");
+        final int mnd = GetInt(p, "jrmcIntI");
+        return (int)((str + dex + con + wil + spi + mnd) / 5.0 - 11.0);
+    }
+>>>>>>> d02aeeabfd897ee8c2390916672bfeb39c270342
 }
