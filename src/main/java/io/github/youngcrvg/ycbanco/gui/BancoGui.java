@@ -35,7 +35,7 @@ public class BancoGui {
                 for(String line : loreConfig) {
                     lore.add(
                             line.replace("&", "§")
-                            .replace("{tp}", Main.getInstance().getApi().getFormatBalance().formatNumber(Main.getInstance().cache.get(p.getName()).getMoney()))
+                            .replace("{tp}", Main.getInstance().getApi().getFormatBalance().formatNumber(Main.getInstance().cache.get(p.getName()).getTp()))
                     );
                 }
                 meta.setLore(lore);
