@@ -1,0 +1,9 @@
+main: io.github.youngcrvg.ycbanco.Main
+version: 1.0
+name: ycBanco
+commands:
+  banco:
+  bancoadmin:
+depend:
+  - PowerNBT
+  - YoungAPI
