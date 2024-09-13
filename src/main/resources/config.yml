@@ -1,0 +1,41 @@
+Gui:
+  banco:
+    nome: "&cBanco"
+    tamanho: 27
+    itens:
+      info:
+        nome: "&fInfo"
+        slot: 10
+        id: 1
+        data: 0
+        lore:
+          - ""
+          - "&cTP: {tp}"
+          - "&cMoney: {money}"
+      sacar:
+        nome: "&fSacar"
+        slot: 12
+        id: 1
+        data: 0
+        lore:
+          - ""
+          - "&cTP: {tp}"
+          - "&cMoney: {money}"
+      depositar:
+        nome: "&fDepositar"
+        slot: 13
+        id: 1
+        data: 0
+        lore:
+          - ""
+          - "&cTP: {tp}"
+          - "&cMoney: {money}"
+      enviar:
+        nome: "&fEnviar"
+        slot: -1 # to fazendo ainda
+        id: 1
+        data: 0
+        lore:
+          - ""
+          - "&cTP: {tp}"
+          - "&cMoney: {money}"
