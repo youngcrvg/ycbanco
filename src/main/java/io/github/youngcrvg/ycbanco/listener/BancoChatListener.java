@@ -57,6 +57,7 @@ public class BancoChatListener implements Listener {
             }
             NBT.SetInt(p, "jrmcTpint", actuallyBalance - (int) unformattedValue);
             instance.getCache().get(p.getName()).setTp(actuallyBalance + unformattedValue);
+            p.sendMessage(ChatColor.GREEN+"Você sacou " + api.getFormatBalance().formatNumber(unformattedValue) + " TP's");
         }
     }
     public static boolean onlyNumbers(String input) {
