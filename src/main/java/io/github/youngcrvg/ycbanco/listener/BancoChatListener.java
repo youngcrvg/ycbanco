@@ -12,15 +12,14 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class BancoChatListener implements Listener {
     private final YoungAPI api = Main.getInstance().getApi();
-    private final H2 h2 = Main.getInstance().getH2();
-
+    private final Main instance = Main.getInstance();
     @EventHandler
     public void onAsyncChatEvent(AsyncPlayerChatEvent e) {
         String msg = e.getMessage();
         Player p = e.getPlayer();
         if (p.hasMetadata("banco_sacar")) {
             e.setCancelled(true);
-            double actuallyBalance = h2.get(p, "tp");
+            double actuallyBalance = instance.getCache().get(p.getName()).getTp();
             p.removeMetadata("banco_sacar", Main.getInstance());
             double unformattedValue;
             try {
@@ -35,15 +34,31 @@ public class BancoChatListener implements Listener {
             if (actuallyBalance < unformattedValue) {
                 p.sendMessage(ChatColor.RED + "Você não tem saldo suficente.");
             }
-            h2.edit(p, actuallyBalance - unformattedValue, "tp");
+            if(NBT.GetInt(p,"jrmcTpint") + unformattedValue > 2E9) {
+                p.sendMessage(ChatColor.RED+"O Valor ultrapassa os 2B");
+                return;
+            }
+            instance.getCache().get(p.getName()).setTp(actuallyBalance - unformattedValue);
             NBT.SetInt(p, "jrmcTpint", (int) unformattedValue);
             p.sendMessage(ChatColor.GREEN + "Você sacou " + api.getFormatBalance().formatNumber(unformattedValue) + " TP's");
         } else if (p.hasMetadata("banco_depoistar")) {
             e.setCancelled(true);
+            p.removeMetadata("banco_depoistar", Main.getInstance());
+            int actuallyBalance = NBT.GetInt(p, "jrmcTpint");
+            double unformattedValue;
+            try {
+                unformattedValue = api.getFormatBalance().unformatNumber(msg);
+            } catch (IllegalArgumentException ex) {
+                if (!onlyNumbers(msg)) {
+                    p.sendMessage(ChatColor.RED + "Valor inválido");
+                    return;
+                }
+                unformattedValue = Double.parseDouble(msg);
+            }
+            NBT.SetInt(p, "jrmcTpint", actuallyBalance - (int) unformattedValue);
+            instance.getCache().get(p.getName()).setTp(actuallyBalance + unformattedValue);
         }
     }
-
-
     public static boolean onlyNumbers(String input) {
         return input.matches("\\d+");
     }
